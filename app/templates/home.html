@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+<form id="uploadForm" action="{{ url_for('main.home') }}" method="POST" enctype="multipart/form-data">
+  <input type="file" name="file" id="fileInput" />
+  <button type="submit">Upload a file</button>
+</form>
+
+<div id="response">
+  <!-- Use Bootstrap grid and card components for image display -->
+  <div class="container">
+    <div class="row" id="imageContainer"></div>
+  </div>
+</div>
+{% endblock %}

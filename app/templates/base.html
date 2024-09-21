@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}E-libra {% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .container-fluid {
+        height: 100%;
+        padding-right: 0;
+        padding-left: 0;
+      }
+      .sidebar {
+        height: 100%;
+        background-color: #343a40; /* Sidebar background color */
+        padding: 20px; /* Adjust as needed */
+      }
+      .sidebar-sticky {
+        position: sticky;
+        top: 0;
+        padding-bottom: 20px; /* Adjust as needed */
+      }
+      .nav-link {
+        color: #fff; /* Link text color */
+      }
+      .nav-link:hover {
+        color: #ccc; /* Link hover color */
+      }
+      .navbar {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <aside class="col-md-3 col-lg-3 sidebar bg-dark">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              {% if current_user.is_authenticated %}
+              <h1 class="text-light my-5 text-center">Dashboard</h1>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a>
+              </li>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('main.category') }}" class="nav-link">Category</a>
+              </li>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('main.author') }}" class="nav-link">Author</a>
+              </li>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('main.book') }}" class="nav-link">Book</a>
+              </li>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
+              </li>
+
+              {% else %}
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('auth.login') }}" class="nav-link">Login</a>
+              </li>
+              <li class="nav-item my-3 text-center">
+                <a href="{{ url_for('auth.signup') }}" class="nav-link">Sign Up</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Content -->
+        <div class="w-auto col-lg-9 col-md-9">
+          <section class="hero">
+            <div class="hero-head">
+              <nav class="navbar navbar-expand-lg d-flex navbar-light py-4 bg-dark justify-content-between">
+                <a href="{{ url_for('main.index') }}" class="navbar-brand text-light text-center"
+                  >E-libra-API</a
+                >
+                <span class="d-flex navbar-brand text-light text-center mr-5">Welcome! {{username}}</span>
+              </nav>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">{% block content %}{% endblock %}</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (use the CDN link or host the file locally) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

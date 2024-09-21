@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Category
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Add Category</h2>
+            <form method="post" action="{{ url_for('main.category') }}" class="mt-4">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.name.label(class="form-label") }}
+                    {{ form.name(class="form-control", placeholder="Enter category") }}
+                    {% for error in form.name.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2>Categories</h2>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        {{ category.name }}
+                        <form method="post" action="{{ url_for('main.category') }}">
+                            {{ form.csrf_token }}
+                            <input type="hidden" name="category_id" value="{{ category.id }}" />
+                            <div class="form-row align-items-center mt-2">
+                                <div class="col-auto">
+                                    <input type="text" name="new_name" class="form-control" placeholder="New name" />
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" name="edit_category" class="btn btn-sm btn-info">Edit</button>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" name="delete_category" class="btn btn-sm btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block title %}Authors{% endblock %} {% block content %}
+<div class="container">
+  <h2 class="text-center mt-4 mb-3">Authors</h2>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAuthorModal">
+        Add Author
+      </button>
+      <table class="table">
+        <!-- Table Headings -->
+
+        <thead>
+          <tr class="shadow-sm m-2 table-bordered">
+            <th>Name</th>
+            <th>Description</th>
+            <th>Gender</th>
+            <th>Author Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for author in authors %}
+          <tr>
+            <td>{{ author.author_name }}</td>
+            <td>{{ author.author_decs }}</td>
+            <td>{{ author.gender }}</td>
+            <td>
+              <img src="{{ author.author_image }}" alt="{{ author.author_name }}" style="max-width: 100px" />
+            </td>
+            <td class="d-flex">
+              <a href="{{ url_for('main.edit_author', id=author.id) }}" class="btn btn-sm btn-info">Edit</a>
+              <form
+                method="post"
+                action="{{ url_for('main.delete_author', id=author.id) }}"
+                style="display: inline"
+              >
+                {{ form.csrf_token }}
+                <button type="submit" class="mx-1 btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Add Author Modal -->
+<div
+  class="modal fade"
+  id="addAuthorModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addAuthorModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content bg-secondary text-white" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAuthorModalLabel">Add Author</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{{ url_for('main.author') }}" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+          <!-- Form Fields -->
+          <div class="">
+            <div class="form-group col-md-6">
+              <label for="authorName">Name</label>
+              <input type="text" class="form-control" id="authorName" name="author_name" required />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="authorDecs">Description</label>
+              <input type="text" class="form-control" id="authorDecs" name="author_decs" required />
+            </div>
+          </div>
+          <div class="">
+            <div class="form-group col-md-6">
+              <label for="authorGender">Gender</label>
+              <input type="text" class="form-control" id="authorGender" name="gender" required />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="authorImage">Image</label>
+              <input type="file" class="form-control-file" id="authorImage" name="author_image" required />
+            </div>
+          </div>
+          <!-- Form Validation Errors -->
+          {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger" role="alert">{{ field|capitalize }}: {{ ', '.join(errors) }}</div>
+          {% endfor %}
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary">Add Author</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

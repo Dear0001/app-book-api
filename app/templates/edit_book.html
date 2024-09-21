@@ -1,0 +1,34 @@
+{% extends "base.html" %} 
+{% block title %}Edit Book{% endblock %} 
+{% block content %}
+<div class="container">
+  <h2 class="text-center mt-4 mb-3">Edit Book</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('main.edit_book', id=book.id) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.title.label(class="form-label") }} {{ form.title(class="form-control", value=book.title) }}
+        </div>
+        <div class="form-group">
+          {{ form.description.label(class="form-label") }} {{ form.description(class="form-control", value=book.description) }}
+        </div>
+        <div class="form-group">
+          {{ form.price.label(class="form-label") }} {{ form.price(class="form-control", value=book.price) }}
+        </div>
+        <div class="form-group">
+          {{ form.publisher.label(class="form-label") }} {{ form.publisher(class="form-control", value=book.publisher) }}
+        </div>
+        <div class="form-group">
+          {{ form.author.label(class="form-label") }} {{ form.author(class="form-control", value=book.author_id) }}
+        </div>
+        <div class="form-group">
+          {{ form.category.label(class="form-label") }} {{ form.category(class="form-control", value=book.category_id) }}
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

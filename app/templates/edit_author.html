@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Edit Author{% endblock %} {% block content %}
+<div class="container">
+  <h2 class="text-center mt-4 mb-3">Edit Author</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.author_name.label(class="form-label") }} {{ form.author_name(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.author_decs.label(class="form-label") }} {{ form.author_decs(class="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ form.gender.label(class="form-label") }} {{ form.gender(class="form-control") }}
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

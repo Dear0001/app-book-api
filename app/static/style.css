@@ -1,0 +1,101 @@
+/* styles.css */
+
+/* Example: Increase padding on navbar items */
+.navbar-nav .nav-item {
+    padding: 0.5rem 1rem;
+}
+
+/* Example: Change hero body background color */
+.hero-body {
+    padding: 10px;
+    width: 100%;
+    height: 90vh;
+    background-color: #ffffff;
+    /* Light gray color */
+}
+
+.sidebar {
+    width: 20%;
+}
+
+.navbar {
+    width: auto;
+    margin-bottom: 5px;
+}
+
+.navbar-nav {
+    display: flex;
+}
+
+.nav-item {
+    width: 100%;
+    align-items: center;
+}
+
+.row {
+    height: 100vh;
+
+}
+
+.background {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card {
+    height: auto;
+    border-radius: 5%;
+}
+/* 
+.card-body {
+    height: 40vh;
+} */
+
+
+.back-form {
+    background-color: #afafaf;
+    display: block;
+    /* filter: blur(10px); */
+}
+
+.sidebar-sticky {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.col-lg-9 {
+    padding: 0;
+}
+
+.container-fluid {
+    height: 100vh;
+    width: 100%;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+.hero-head {
+    width: 100%;
+}
+
+.hero-body {
+    flex-grow: 1;
+}
+
+.signUp {
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

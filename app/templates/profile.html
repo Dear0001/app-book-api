@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block title %}Profile{% endblock %} {% block content %}
+<div class="container">
+  <h2 class="text-center mt-4 mb-3">Profile Management List</h2>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Profile Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for profile in profiles %}
+          <tr>
+            <td>{{ profile.username }}</td>
+            <td>{{ profile.email }}</td>
+            <td>{{ profile.gender }}</td>
+            <td>{{ profile.role }}</td>
+            <td>
+              {% if profile.profile_image %}
+              <img src="{{ profile.profile_image }}" alt="Profile Image" class="img-thumbnail" width="100" />
+              {% else %} No Image {% endif %}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-sm btn-info edit-profile"
+                data-toggle="modal"
+                data-target="#editProfileModal"
+                data-id="{{ profile.id }}"
+                data-username="{{ profile.username }}"
+                data-email="{{ profile.email }}"
+                data-gender="{{ profile.gender }}"
+                data-role="{{ profile.role }}"
+              >
+                Edit
+              </button>
+              <form
+                method="post"
+                action="{{ url_for('main.delete_profile', id=profile.id) }}"
+                style="display: inline"
+              >
+                {{ form.csrf_token }}
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body items-conten">
+                <form id="editProfileForm" method="post" action="">
+                    {{ form.csrf_token }}
+                    <input type="hidden" id="editProfileId" name="profile_id" value="">
+                    <div class="form-group">
+                        <label for="editUsername">Username</label>
+                        <input type="text" class="form-control" id="editUsername" name="new_username" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="new_email" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="editGender">Gender</label>
+                        <select class="form-control" id="editGender" name="new_gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRole">Role</label>
+                        <select class="form-control" id="editRole" name="new_role">
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProfileImage">Profile Image</label>
+                        <input type="file" class="form-control-file" id="editProfileImage" name="new_profile_image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
